@@ -11,7 +11,7 @@ strace -e write ./ex1b_write
 ```
 
 ### 🔍 Análise
-
+strace -e write ./ex1b_wrstrace -e write ./ex1b_writestrace -e write ./ex1b_writeite
 **1. Quantas syscalls write() cada programa gerou?**
 - ex1a_printf: 9 syscalls
 - ex1b_write: 7 syscalls
@@ -19,13 +19,13 @@ strace -e write ./ex1b_write
 **2. Por que há diferença entre os dois métodos? Consulte o docs/printf_vs_write.md**
 
 ```
-[Sua análise aqui]
+Pois o printf usa buffer para ter um acesso mais rápido e faz syscall quando encontra /n,mas o write escreve diretamente no descritor de arquivo sem buffering e faz syscall em cada chamada
 ```
 
 **3. Qual método é mais previsível? Por quê você acha isso?**
 
 ```
-[Sua análise aqui]
+write(),pois a quantidade de syscalls igual a quantidade de chamada
 ```
 
 ---
@@ -33,8 +33,8 @@ strace -e write ./ex1b_write
 ## 2️⃣ Exercício 2 - Leitura de Arquivo
 
 ### 📊 Resultados da execução:
-- File descriptor: _____
-- Bytes lidos: _____
+- File descriptor: 3
+- Bytes lidos: 127
 
 ### 🔧 Comando strace:
 ```bash
@@ -46,13 +46,13 @@ strace -e openat,read,close ./ex2_leitura
 **1. Qual file descriptor foi usado? Por que não começou em 0, 1 ou 2?**
 
 ```
-[Sua análise aqui]
+O file descriptor usado foi 3,os file descriptors 0,1 e 2estão reservado para os fluxos padrão:entrada padrão,saída padrão e saída de erro
 ```
 
 **2. Como você sabe que o arquivo foi lido completamente?**
 
 ```
-[Sua análise aqui]
+Quando o número de Byte lido for 0
 ```
 
 **3. Por que verificar retorno de cada syscall?**
